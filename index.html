@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>arashii | portfólio</title>
+</head>
+
+<body>
+    <div class="particulas"></div>
+
+    <nav class="navegacao">
+        <ul class="menu">
+            <li>
+                <a href="#inicio" class="menu_link">Início</a>
+            </li>
+            <li>
+                <a href="#sobre" class="menu_link">Sobre</a>
+            </li>
+            <li>
+                <a href="#projetos" class="menu_link">Projetos</a>
+            </li>
+            <li>
+                <a href="#contato" class="menu_link">Contato</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main id="inicio" class="cabecalho">
+        <div class="fotos">
+            <img src="./img/Subarashii_aura.png" class="foto_perfil">
+        </div>
+        <h1 class="titulo">Subarashii</h1>
+        <div class="desc_cabecalho">
+            <p class="cabecalho_descricao">Programador por Diversão</p>
+            <div class="links_proficionais">
+                <a href="https://www.linkedin.com/in/arthur-godoy-caminski-933985358/" class="link_social">Linkedin</a>
+                <a href="https://github.com/Sev3n30" class="link_social">Github</a>
+            </div>
+        </div>
+    </main>
+
+    <section id="sobre" class="sobre">
+        <h2 class="sobre_titulo">Sobre mim</h2>
+        <div class="sobre_caixa">
+            <p class="sobre_paragrafo">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi est adipisci voluptatem facilis
+                maiores laudantium accusantium neque culpa ratione aperiam velit iste deserunt reprehenderit atque,
+                dicta doloribus asperiores saepe similique?
+            </p>
+        </div>
+    </section>
+
+    <section id="projetos" class="projetos">
+        <h2 class="projetos_titulo">Meus Projetos</h2>
+        <div class="projetos_caixa">
+
+            <div class="projetos_card">
+                <img src="./img/Nyxs_perfil.png" alt="Projeto 1" class="projetos_imagem">
+                <div class="caixa_textos">
+                    <h3 class="info_projetos">Nyxs Bot</h3>
+                    <p class="paragrafo_projetos">Meu projeto pessoal para criar um bot com inteligencia artificial, a
+                        nyxs é muito foda</p>
+                </div>
+            </div>
+            <div class="projetos_card">
+                <img src="./img/qin_banner.png" alt="Projeto 1" class="projetos_imagem">
+                <div class="caixa_textos">
+                    <h3 class="info_projetos">Qin bot</h3>
+                    <p class="paragrafo_projetos">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+                        architecto
+                        similique fuga officia repudiandae est totam dolor quisquam numquam? Exercitationem debitis sit
+                        porro dolorum quod nisi possimus voluptas ipsa ipsum!</p>
+                </div>
+            </div>
+            <div class="projetos_card">
+                <img src="./img/nox_banner.png" alt="Projeto 1" class="projetos_imagem">
+                <div class="caixa_textos">
+                    <h3 class="info_projetos">Nox Bot</h3>
+                    <p class="paragrafo_projetos">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
+                        velit
+                        soluta provident et aliquid suscipit, rem molestiae quia adipisci, libero sit dolore officiis
+                        minus
+                        expedita ratione, asperiores deleniti natus magnam!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="contatos">
+        <h2 class="contatos_titulo">Entre em Contato</h2>
+        <form class="formulario_contato" id="formulario" onsubmit="enviarWhats(event)">
+            <div class="grupo_form">
+                <input placeholder="Nome" class="campo_form" id="nome">
+            </div>
+            <div class="grupo_form">
+                <textarea class="campo_form" placeholder="Digite sua Mensagem" rows="4" id="mensagem"></textarea>
+            </div>
+            <button type="submit" class="botao">Enviar Whatsapp</button>
+        </form>
+    </section>
+
+    <script>
+        function enviarWhats(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value
+            const mensagem = document.getElementById('mensagem').value
+            const telefone = '5549985045188'
+
+            const texto = `Olá! Me chamo ${nome}, ${mensagem}`
+            const msgFormatada = encodeURIComponent(texto)
+
+            const url = `https://wa.me/${telefone}?text=${msgFormatada}`
+
+            window.open(url, '_blank')
+        }
+    </script>
+</body>
+
+</html>
