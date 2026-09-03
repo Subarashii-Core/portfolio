@@ -5,7 +5,7 @@ function enviarWhats(event) {
     const mensagem = document.getElementById('mensagem').value
     const telefone = '5549985045188'
 
-    const texto = `Olá! Me chamo ${nome}, ${mensagem}`
+    const texto = `Olá, me chamo ${nome}, ${mensagem}`
     const msgFormatada = encodeURIComponent(texto)
 
     const url = `https://wa.me/${telefone}?text=${msgFormatada}`
@@ -336,7 +336,7 @@ window.addEventListener("load", () => {
         setTimeout(() => {
             loadingScreen.remove()
         }, 800)
-    }, 2200)
+    }, 800)
 })
 
 const loadingText = document.getElementById("loading-text")
@@ -344,7 +344,6 @@ const loadingText = document.getElementById("loading-text")
 const mensagens = [
     "INITIALIZING SYSTEM...",
     "CONNECTING TO NYXS...",
-    "LOADING PROJECT DATABASE...",
     "ACCESS GRANTED"
 ]
 
@@ -358,7 +357,7 @@ const intervalo = setInterval(() => {
     if(i >= mensagens.length){
         clearInterval(intervalo)
     }
-}, 500)
+}, 280)
 
 // cursor
 
@@ -439,17 +438,9 @@ function resetIdle(){
 }
 
 setInterval(() => {
-    if(idleTime === 30){
+    if(idleTime === 60){
         ativarAFK();
         mostrarMensagemAFK("ARE YOU STILL THERE?");
-    }
-
-    if(idleTime === 45){
-        mostrarMensagemAFK("I CAN SEE YOU.");
-    }
-
-    if(idleTime === 60){
-        mostrarMensagemAFK("DON'T BE NERVOUS.");
     }
 
     if(idleTime === 90){
