@@ -14,6 +14,24 @@ select,
     cursor:none !important;
 }
 
+@media (hover: none), (pointer: coarse) {
+
+    .cursor-dot,
+    .cursor-ring {
+        display: none !important;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [role="button"] {
+        cursor: auto !important;
+    }
+
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Alien+Block&display=swap');
 
 html{
@@ -33,6 +51,175 @@ body{
     background-color: var(--escuro);
     color: var(--claro);
     cursor: none;
+}
+
+/* =========================================
+   SOBRE MIM CLICK
+========================================= */
+
+.sobre_titulo {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+
+    cursor: none;
+
+    transition:
+        transform .25s ease,
+        text-shadow .25s ease;
+}
+
+.sobre_titulo:hover {
+    transform: scale(1.05);
+
+    text-shadow:
+        0 0 10px rgba(0, 212, 255, .65),
+        0 0 24px rgba(229, 0, 255, .25);
+}
+
+
+/* =========================================
+   CURRICULO MODAL
+========================================= */
+
+.curriculo-modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 8888;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(0, 0, 0, .88);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+.curriculo-modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+
+/* CONTAINER */
+
+.curriculo-container {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 16px;
+
+    max-width: 90vw;
+    max-height: 92vh;
+}
+
+
+/* CURRICULO */
+
+.curriculo-container > img {
+    display: block;
+
+    max-width: 90vw;
+    max-height: 82vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, .55);
+}
+
+
+/* DOWNLOAD */
+
+.curriculo-download {
+    padding: 11px 22px;
+
+    color: #06101f;
+    background: #00d4ff;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.curriculo-download:hover {
+    transform: translateY(-2px);
+    background: #4ee3ff;
+}
+
+
+/* CLOSE */
+
+.curriculo-close {
+    position: absolute;
+
+    top: -20px;
+    right: -20px;
+
+    z-index: 2;
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    color: white;
+    background: #15151a;
+
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 50%;
+
+    font-size: 24px;
+
+    cursor: none;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .curriculo-modal {
+        padding: 15px;
+    }
+
+    .curriculo-container > img {
+        max-width: 94vw;
+        max-height: 82vh;
+    }
+
+    .curriculo-close {
+        top: -14px;
+        right: -5px;
+    }
+
 }
 
 .afk-message{
@@ -102,70 +289,6 @@ body{
 
 #afk-overlay.active{
     opacity: 1;
-}
-
-#loading-screen{
-    position: fixed;
-    inset: 0;
-
-    z-index: 999;
-
-    background: #020617;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transition: opacity .8s ease;
-}
-
-#loading-screen.hidden{
-    opacity: 0;
-    pointer-events: none;
-}
-
-.loading-content{
-    text-align: center;
-}
-
-.loading-content h1{
-    font-size: 2rem;
-    letter-spacing: 8px;
-    font-family: "Black Ops One", system-ui;
-
-    color: #7dd3fc;
-}
-
-#loading-text{
-    margin: 20px;
-    font-family: "Rubik Glitch", system-ui;
-
-    color: #94a3b8;
-}
-
-.loading-bar{
-    width: 455px; 
-    height: 6px;
-    background: rgba(255,255,255,.1);
-
-    border-radius: 999px;
-
-    overflow: hidden;
-}
-
-.loading-progress{
-    height: 100%;
-    width: 0%;
-
-    background: #38bdf8;
-
-    animation: loadingBar 2.2s linear forwards;
-}
-
-@keyframes loadingBar {
-    to{
-        width: 100%;
-    }
 }
 
 ::-webkit-scrollbar{
@@ -756,10 +879,6 @@ body.fundo-alterado #fundo-alt{
     object-fit: cover;
 }
 
-.carousel-mobile{
-    display: none;
-}
-
 /* OVERLAY */
 
 .overlay{
@@ -904,26 +1023,70 @@ body.fundo-alterado #fundo-alt{
     color: #e0f2fe ;
 }
 
-@media(max-width:1416px){
-    .carousel{
+.carousel-mobile {
+    display: none;
+}
+
+@media (max-width: 1416px) {
+
+    .carousel {
         height: auto;
+        touch-action: pan-y;
     }
 
-    .projetos_card.left, .projetos_card.right{
+    .projetos_card.left,
+    .projetos_card.right {
         display: none;
     }
-    .projetos_card.active{
+
+    .projetos_card.active {
         position: relative;
         width: 50vw;
         margin: auto;
     }
 
-    .carousel-mobile{
+    .carousel-mobile {
         display: flex;
+        align-items: center;
         justify-content: center;
-        gap: 20px;
-        margin-top: 20px;
+
+        gap: 14px;
+
+        margin-top: 24px;
+
+        color: rgba(255, 255, 255, 0.45);
+
+        pointer-events: none;
+        user-select: none;
     }
+
+    .carousel-swipe-arrow {
+        font-size: 34px;
+        font-weight: 300;
+        line-height: 1;
+
+        opacity: 0.55;
+
+        animation: swipeArrow 1.8s ease-in-out infinite;
+    }
+
+    .carousel-swipe-arrow.left {
+        animation-name: swipeArrowLeft;
+    }
+
+    .carousel-swipe-arrow.right {
+        animation-name: swipeArrowRight;
+    }
+
+    .carousel-swipe-text {
+        font-size: 10px;
+        font-weight: 800;
+
+        letter-spacing: 0.22em;
+
+        color: rgba(255, 255, 255, 0.28);
+    }
+
 }
 
 @media(max-width:768px){
@@ -1198,4 +1361,123 @@ body.fundo-alterado #fundo-alt{
         transform: translate(0); 
         filter: none; 
         }
+}
+
+@keyframes swipeArrowLeft {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateX(-6px);
+        opacity: 0.8;
+    }
+
+}
+
+@keyframes swipeArrowRight {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateX(6px);
+        opacity: 0.8;
+    }
+
+}
+
+
+/* =========================================
+   PERFORMANCE MODE
+========================================= */
+
+body.performance-mode *,
+body.performance-mode *::before,
+body.performance-mode *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.001ms !important;
+
+    scroll-behavior: auto !important;
+}
+
+
+/* CURSOR NORMAL */
+
+body.performance-mode {
+    cursor: default !important;
+}
+
+body.performance-mode a,
+body.performance-mode button,
+body.performance-mode .clickable,
+body.performance-mode [role="button"] {
+    cursor: pointer !important;
+}
+
+body.performance-mode .cursor-dot,
+body.performance-mode .cursor-ring {
+    display: none !important;
+}
+
+
+/* CAROUSEL MAIS SECO */
+
+body.performance-mode .projetos_card {
+    transition: none !important;
+}
+
+body.performance-mode .bubbles_container {
+    transition: none !important;
+}
+
+body.performance-mode .bubble,
+body.performance-mode .card_header,
+body.performance-mode .overlay {
+    transition: none !important;
+}
+
+
+/* REMOVE EFEITOS PESADOS */
+
+body.performance-mode .project-image img,
+body.performance-mode .project-image video,
+body.performance-mode .project-image-png img {
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+
+/* ELEMENTOS PURAMENTE DECORATIVOS */
+
+body.performance-mode .cursor-dot,
+body.performance-mode .cursor-ring,
+body.performance-mode .clock-particles,
+body.performance-mode .clock-noise,
+body.performance-mode .clock-glitch {
+    display: none !important;
+}
+
+
+/* BACKGROUND ANIMADO */
+
+body.performance-mode .branding-line,
+body.performance-mode .ribbon-track {
+    animation-play-state: paused !important;
+}
+
+
+/* BLUR É CARO */
+
+body.performance-mode * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }

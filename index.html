@@ -4,16 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./img/ta.png">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Croissant+One&family=Rubik+Glitch&display=swap" rel="stylesheet">
+    <link rel="icon" href="./img/Favicon.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/clock.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Croissant+One&family=Rubik+Glitch&display=swap"
+        rel="stylesheet">
     <title>Subarashii | portfólio</title>
 </head>
+
+<div class="curriculo-modal" id="curriculoModal">
+
+    <div class="curriculo-container">
+
+        <button
+            class="curriculo-close clickable"
+            id="fecharCurriculo"
+            type="button"
+        >
+            ×
+        </button>
+
+        <img
+            src="./img/curriculo.png"
+            alt="Currículo Arthur Godoy Caminski"
+        >
+
+        <a
+            href="./img/curriculo.png"
+            download="Arthur_Godoy_Caminski_Curriculo.png"
+            class="curriculo-download clickable"
+        >
+            BAIXAR CURRÍCULO
+        </a>
+
+    </div>
+
+</div>
 
 <body>
     <div class="particulas"></div>
     <div class="cursor-dot"></div>
-    <div class="cursor-ring"></div> 
+    <div class="cursor-ring"></div>
 
     <nav class="navegacao">
         <ul class="menu">
@@ -32,21 +64,86 @@
         </ul>
     </nav>
 
-    <div id="loading-screen">
-        <div class="loading-content">
-            <h1>NYNX'S SYSTEM</h1>
+    <div id="clock-layer" class="clock-layer intro-active" aria-hidden="true">
 
-            <p id="loading-text">
-                INITIALIZING SYSTEM...
-            </p>
+        <div class="clock-scene">
 
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
+            <div class="clock-particles" id="clock-particles"></div>
 
-            <div class="external-circle"></div>
-            <div class="internal-circle"></div>
+            <svg class="clock-svg" viewBox="0 0 1000 1000" aria-hidden="true">
+
+                <defs>
+
+                    <filter id="clockGlow">
+                        <feGaussianBlur stdDeviation="2.8" result="blur"></feGaussianBlur>
+
+                        <feMerge>
+                            <feMergeNode in="blur"></feMergeNode>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                    </filter>
+
+                </defs>
+
+
+                <!-- AROS QUEBRADOS -->
+
+                <g class="clock-ring-group ring-group-outer">
+                    <circle class="clock-ring-fragment ring-fragment-outer" cx="500" cy="500" r="405"></circle>
+                </g>
+
+                <g class="clock-ring-group ring-group-3">
+                    <circle class="clock-ring-fragment ring-fragment-3" cx="500" cy="500" r="350"></circle>
+                </g>
+
+                <g class="clock-ring-group ring-group-2">
+                    <circle class="clock-ring-fragment ring-fragment-2" cx="500" cy="500" r="300"></circle>
+                </g>
+
+                <g class="clock-ring-group ring-group-1">
+                    <circle class="clock-ring-fragment ring-fragment-1" cx="500" cy="500" r="255"></circle>
+                </g>
+
+
+                <!-- CORPO DO RELÓGIO -->
+
+                <circle class="clock-face-outer" cx="500" cy="500" r="210"></circle>
+
+                <circle class="clock-face-inner" cx="500" cy="500" r="193"></circle>
+
+
+                <!-- MARCAS -->
+
+                <g id="clock-ticks" class="clock-ticks"></g>
+
+
+                <!-- ROMANOS -->
+
+                <g id="clock-romans" class="clock-romans"></g>
+
+
+                <!-- PONTEIROS -->
+
+                <g class="clock-hands">
+
+                    <line class="clock-hand clock-hour" x1="500" y1="500" x2="433" y2="365"></line>
+
+                    <line class="clock-hand clock-minute" x1="500" y1="500" x2="570" y2="345"></line>
+
+                    <line class="clock-hand clock-second" x1="500" y1="500" x2="335" y2="515"></line>
+
+                </g>
+
+                <circle class="clock-center" cx="500" cy="500" r="7"></circle>
+
+            </svg>
+
+
+            <div class="clock-noise"></div>
+            <div class="clock-glitch"></div>
+
         </div>
+
     </div>
 
     <main id="inicio" class="cabecalho">
@@ -57,7 +154,8 @@
         <div class="desc_cabecalho">
             <p class="cabecalho_descricao" id="descricaoPerfil">Desenvolvedor Full Stack</p>
             <div class="links_proficionais">
-                <a href="https://www.linkedin.com/in/arthur-godoy-caminski-933985358/" class="link_social" target="_blank">Linkedin</a>
+                <a href="https://www.linkedin.com/in/arthur-godoy-caminski-933985358/" class="link_social"
+                    target="_blank">Linkedin</a>
                 <a href="https://github.com/Subarashii-Core" class="link_social" target="_blank">Github</a>
             </div>
         </div>
@@ -70,13 +168,24 @@
 
     <div class="ticker ticker-top">
         <div class="ticker-track" id="tickerTop">
-            <span> ◆ PROTOCOLO ARTHUR ONLINE ◆ SPACE INVADERS DISPONÍVEL PARA DESAFIANTES ◆ FLAPPY PROJECT EM DESENVOLVIMENTO ATIVO ◆ PROJETOS FRONTEND INTERATIVOS ◆ SISTEMAS EXPERIMENTAIS EM TESTE ◆ ACESSE O GITHUB PARA MAIS DETALHES ◆ ADS • ANÁLISE E DESENVOLVIMENTO DE SISTEMAS ◆ EXPLORANDO BACKEND E FRONTEND ◆ CADA PROJETO É UMA NOVA EXPERIMENTAÇÃO ◆ DESENVOLVIMENTO DE APLICAÇÕES WEB MODERNAS ◆ SUNSHINE E NYNX CONTINUAM EVOLUINDO ◆ PROTOCOLO ARTHUR ONLINE ◆ SPACE INVADERS DISPONÍVEL PARA DESAFIANTES ◆ FLAPPY PROJECT EM DESENVOLVIMENTO ATIVO ◆ PROJETOS FRONTEND INTERATIVOS ◆ SISTEMAS EXPERIMENTAIS EM TESTE ◆ </span>
-        </div> 
+            <span> ◆ PROTOCOLO ARTHUR ONLINE ◆ SPACE INVADERS DISPONÍVEL PARA DESAFIANTES ◆ FLAPPY PROJECT EM
+                DESENVOLVIMENTO ATIVO ◆ PROJETOS FRONTEND INTERATIVOS ◆ SISTEMAS EXPERIMENTAIS EM TESTE ◆ ACESSE O
+                GITHUB PARA MAIS DETALHES ◆ ADS • ANÁLISE E DESENVOLVIMENTO DE SISTEMAS ◆ EXPLORANDO BACKEND E FRONTEND
+                ◆ CADA PROJETO É UMA NOVA EXPERIMENTAÇÃO ◆ DESENVOLVIMENTO DE APLICAÇÕES WEB MODERNAS ◆ SUNSHINE E NYNX
+                CONTINUAM EVOLUINDO ◆ PROTOCOLO ARTHUR ONLINE ◆ SPACE INVADERS DISPONÍVEL PARA DESAFIANTES ◆ FLAPPY
+                PROJECT EM DESENVOLVIMENTO ATIVO ◆ PROJETOS FRONTEND INTERATIVOS ◆ SISTEMAS EXPERIMENTAIS EM TESTE ◆
+            </span>
+        </div>
     </div>
 
     <div class="ticker ticker-bottom">
         <div class="ticker-track" id="tickerBottom">
-            <span> ◆ SUNSHINE PROJECT • STATUS OPERACIONAL 46% ◆ NYNX ENTITY • DESENVOLVIMENTO CONTÍNUO ◆ HTML • CSS • JAVASCRIPT ◆ NODE.JS • MYSQL • APIs ◆ FULL STACK EM TREINAMENTO CONSTANTE ◆ AUTOMAÇÃO DE PROCESSOS E SISTEMAS ◆ DESENVOLVIMENTO DE BOTS PARA DISCORD ◆ ROBÓTICA E MECATRÔNICA COMO OBJETIVO PRINCIPAL ◆ APRENDIZADO CONTÍNUO ATIVADO ◆ NOVAS FUNCIONALIDADES EM PESQUISA ◆ TECNOLOGIA • CRIATIVIDADE • EXPERIMENTAÇÃO ◆ SUNSHINE PROJECT • STATUS OPERACIONAL 46% ◆ NYNX ENTITY • DESENVOLVIMENTO CONTÍNUO ◆ HTML • CSS • JAVASCRIPT ◆ NODE.JS • MYSQL • APIs ◆ </span>
+            <span> ◆ SUNSHINE PROJECT • STATUS OPERACIONAL 46% ◆ NYNX ENTITY • DESENVOLVIMENTO CONTÍNUO ◆ HTML • CSS •
+                JAVASCRIPT ◆ NODE.JS • MYSQL • APIs ◆ FULL STACK EM TREINAMENTO CONSTANTE ◆ AUTOMAÇÃO DE PROCESSOS E
+                SISTEMAS ◆ DESENVOLVIMENTO DE BOTS PARA DISCORD ◆ ROBÓTICA E MECATRÔNICA COMO OBJETIVO PRINCIPAL ◆
+                APRENDIZADO CONTÍNUO ATIVADO ◆ NOVAS FUNCIONALIDADES EM PESQUISA ◆ TECNOLOGIA • CRIATIVIDADE •
+                EXPERIMENTAÇÃO ◆ SUNSHINE PROJECT • STATUS OPERACIONAL 46% ◆ NYNX ENTITY • DESENVOLVIMENTO CONTÍNUO ◆
+                HTML • CSS • JAVASCRIPT ◆ NODE.JS • MYSQL • APIs ◆ </span>
         </div>
     </div>
 
@@ -133,27 +242,40 @@
     </div>
 
     <section id="sobre" class="sobre">
-        <h2 class="sobre_titulo">Sobre mim</h2>
+        <h2 class="sobre_titulo clickable" id="abrirCurriculo">Sobre mim</h2>
+
         <div class="sobre_caixa">
             <div class="moldura" id="textoSobre">
                 <p>
-                    Olá! Meu nome é Arthur Godoy Caminski, estudante de Análise e Desenvolvimento de Sistemas e um apreciador de tecnologias.
+                    Olá! Sou Arthur Godoy Caminski, estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor
+                    interessado em transformar ideias em projetos reais.
                 </p>
 
                 <p>
-                    Atualmente desenvolvo projetos próprios voltados para backend, frontend e automação, sempre buscando aprender novas ferramentas e técnicas.
+                    Tenho experiência prática com desenvolvimento web, programação, bancos de dados, automação e criação
+                    de aplicações próprias, trabalhando principalmente com tecnologias como JavaScript, Python, HTML,
+                    CSS e SQL.
                 </p>
 
                 <p>
-                    Meu principal interesse está na integração entre software e hardware, especialmente nas áreas de robótica, mecatrônica e sistemas inteligentes.
+                    Busco constantemente ampliar meus conhecimentos, tanto no desenvolvimento de software quanto em
+                    áreas que aproximam o mundo digital do físico, especialmente inteligência artificial, robótica,
+                    mecatrônica e sistemas inteligentes.
                 </p>
 
                 <p>
-                    Acredito que a melhor forma de evoluir é construir. Por isso estou constantemente criando projetos, experimentando ideias e transformando conceitos em algo funcional.
+                    Gosto de aprender através da prática: experimentar tecnologias, desenvolver protótipos, enfrentar
+                    problemas reais e transformar conceitos inicialmente simples em soluções cada vez mais completas.
                 </p>
 
                 <p>
-                    Este portfólio reúne parte dessa jornada — e também alguns dos projetos maiores que ainda estão por vir.
+                    Este portfólio reúne parte da minha trajetória, meus estudos e alguns dos projetos que representam
+                    aquilo que venho construindo e o caminho profissional que pretendo seguir.
+                </p>
+
+                <p>
+                    <strong>Quer conhecer melhor minha experiência profissional e acadêmica? Clique em "Sobre Mim" para
+                        acessar meu currículo.</strong>
                 </p>
             </div>
         </div>
@@ -193,12 +315,13 @@
                                 </div>
                             </div>
                             <p class="project-description">
-                                Meu projeto atual de bot para Discord, focado em automações, RPG, mensagens motivacionais,
+                                Meu projeto atual de bot para Discord, focado em automações, RPG, mensagens
+                                motivacionais,
                                 sistemas próprios e interação com usuários.
                             </p>
                             <div class="project-links">
                                 <a href="https://github.com/Sev3n30/Sunshine_Discord-BotV2" target="_blank">GitHub</a>
-                                <a href="#" target="_blank">Bot Page</a>
+                                <a href="./bots/bots.html#sunshine">Bot Page</a>
                             </div>
                         </div>
                     </div>
@@ -229,7 +352,7 @@
                             </p>
                             <div class="project-links">
                                 <a href="https://github.com/Sev3n30/Sunshine_Discord-BotV2" target="_blank">GitHub</a>
-                                <a href="./bots/nynx.html" target="">Bot Page</a>
+                                <a href="./bots/bots.html#nynx" target="">Bot Page</a>
                             </div>
                         </div>
                     </div>
@@ -257,7 +380,7 @@
                             </p>
                             <div class="project-links">
                                 <a href="https://github.com/Sev3n30/Sunshine_Discord-BotV2" target="_blank">GitHub</a>
-                                <a href="./bots/sunshine.html" target="_blank">Bot Page</a>
+                                <a href="./bots/bots.html#nox">Bot Page</a>
                             </div>
                         </div>
                     </div>
@@ -294,7 +417,9 @@
                                     <span>VERSION</span><span>v1.0</span>
                                 </div>
                             </div>
-                            <p class="project-description">Template de apresentação para bebidas com foco em animações suaves e uma experiência visual diferenciada. Possui transições dinâmicas entre sabores e um favicon que muda automaticamente de acordo com o produto exibido.</p>
+                            <p class="project-description">Template de apresentação para bebidas com foco em animações
+                                suaves e uma experiência visual diferenciada. Possui transições dinâmicas entre sabores
+                                e um favicon que muda automaticamente de acordo com o produto exibido.</p>
                             <div class="project-links">
                                 <a href="https://github.com/Subarashii-Core/RefriSite" target="_blank">GitHub</a>
                                 <a href="https://arashii-refri.netlify.app/" target="_blank">Test Page</a>
@@ -320,9 +445,12 @@
                                     <span>VERSION</span><span>v1.0</span>
                                 </div>
                             </div>
-                            <p class="project-description">Template elegante e versátil para lojas virtuais de joias, acessórios ou produtos premium. Seu design limpo e moderno facilita a adaptação para diferentes segmentos sem perder o aspecto sofisticado.</p>
+                            <p class="project-description">Template elegante e versátil para lojas virtuais de joias,
+                                acessórios ou produtos premium. Seu design limpo e moderno facilita a adaptação para
+                                diferentes segmentos sem perder o aspecto sofisticado.</p>
                             <div class="project-links">
-                                <a href="https://github.com/Subarashii-Core/jewelry-store-template" target="_blank">GitHub</a>
+                                <a href="https://github.com/Subarashii-Core/jewelry-store-template"
+                                    target="_blank">GitHub</a>
                                 <a href="https://jewelry-store-showcase.netlify.app/" target="_blank">Test Page</a>
                             </div>
                         </div>
@@ -346,9 +474,12 @@
                                     <span>VERSION</span><span>v1.0</span>
                                 </div>
                             </div>
-                            <p class="project-description">Template de vitrine automotiva criado para destacar veículos de forma dinâmica e impactante. Combina animações, transições suaves e um visual extravagante para valorizar carros esportivos e modelos de luxo.</p>
+                            <p class="project-description">Template de vitrine automotiva criado para destacar veículos
+                                de forma dinâmica e impactante. Combina animações, transições suaves e um visual
+                                extravagante para valorizar carros esportivos e modelos de luxo.</p>
                             <div class="project-links">
-                                <a href="https://github.com/Subarashii-Core/car-store-template" target="_blank">GitHub</a>
+                                <a href="https://github.com/Subarashii-Core/car-store-template"
+                                    target="_blank">GitHub</a>
                                 <a href="https://simple-car-showcase.netlify.app/" target="_blank">Test Page</a>
                             </div>
                         </div>
@@ -451,9 +582,20 @@
             </div>
     </section>
 
-    <div class="carousel-mobile">
-        <button id="prevBtn">◀</button>
-        <button id="nextBtn">▶</button>
+    <div class="carousel-mobile" aria-hidden="true">
+
+        <span class="carousel-swipe-arrow left">
+            ‹
+        </span>
+
+        <span class="carousel-swipe-text">
+            DESLIZE
+        </span>
+
+        <span class="carousel-swipe-arrow right">
+            ›
+        </span>
+
     </div>
 
     <section id="contato" class="contatos">
@@ -469,7 +611,9 @@
         </form>
     </section>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <script src="clock.js" defer></script>
+    <script src="performance.js" defer></script>
 </body>
 
 </html>

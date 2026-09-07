@@ -44,6 +44,135 @@ function updateCarousel() {
 updateCarousel()
 iniciarRotacao()
 
+/* =========================================
+   MOBILE CAROUSEL SWIPE
+========================================= */
+
+const carousel = document.querySelector(".carousel")
+
+let carouselTouchStartX = 0
+let carouselTouchStartY = 0
+
+const carouselSwipeDistance = 55
+
+
+function closeProjectOverlays() {
+
+    document
+        .querySelectorAll(".bubble_item")
+        .forEach(item => {
+            item.classList.remove("expandido")
+        })
+
+}
+
+
+function carouselNext() {
+
+    current++
+
+    if (current >= cards.length) {
+        current = 0
+    }
+
+    closeProjectOverlays()
+    updateCarousel()
+    iniciarRotacao()
+
+}
+
+
+function carouselPrevious() {
+
+    current--
+
+    if (current < 0) {
+        current = cards.length - 1
+    }
+
+    closeProjectOverlays()
+    updateCarousel()
+    iniciarRotacao()
+
+}
+
+
+carousel.addEventListener(
+    "touchstart",
+    event => {
+
+        const touch = event.touches[0]
+
+        carouselTouchStartX = touch.clientX
+        carouselTouchStartY = touch.clientY
+
+    },
+    {
+        passive: true
+    }
+)
+
+
+carousel.addEventListener(
+    "touchend",
+    event => {
+
+        const touch = event.changedTouches[0]
+
+        const differenceX =
+            touch.clientX - carouselTouchStartX
+
+        const differenceY =
+            touch.clientY - carouselTouchStartY
+
+
+        /*
+        Se o movimento vertical for maior,
+        significa que a pessoa estava
+        scrollando a página normalmente.
+        */
+
+        if (
+            Math.abs(differenceY) >
+            Math.abs(differenceX)
+        ) {
+            return
+        }
+
+
+        if (
+            Math.abs(differenceX) <
+            carouselSwipeDistance
+        ) {
+            return
+        }
+
+
+        /*
+        Swipe para esquerda:
+        próximo card.
+        */
+
+        if (differenceX < 0) {
+            carouselNext()
+        }
+
+
+        /*
+        Swipe para direita:
+        card anterior.
+        */
+
+        else {
+            carouselPrevious()
+        }
+
+    },
+    {
+        passive: true
+    }
+)
+
 function iniciarRotacao(){
     clearInterval(timer)
 
@@ -58,37 +187,20 @@ function iniciarRotacao(){
     }, 25000)
 }
 
-cards.forEach((card, index) => {
-    card.addEventListener("click", () =>{
+cards.forEach(card => {
 
-        if(card.classList.contains("left")){
-            current --;
+    card.addEventListener("click", () => {
 
-            if(current < 0){
-                current = cards.length - 1
-            }
-
-            document.querySelectorAll(".bubble_item").forEach((item) => {
-                item.classList.remove("expandido")
-            })
-
-            updateCarousel()
+        if (card.classList.contains("left")) {
+            carouselPrevious()
         }
 
-        else if(card.classList.contains("right")){
-            current ++;
+        else if (card.classList.contains("right")) {
+            carouselNext()
+        }
 
-            if(current >= cards.length){
-                current = 0
-            }
-
-            document.querySelectorAll(".bubble_item").forEach((item) => {
-                item.classList.remove("expandido")
-            })
-
-            updateCarousel()
-        } 
     })
+
 })
 
 const bubbleItens = document.querySelectorAll(".bubble_item")
@@ -164,55 +276,109 @@ function trocarPerfil(){
     modoArashii = !modoArashii;
 
     if(modoArashii){
-        fotoPerfil.src = "img/Subarashii_newEra.png"
+        fotoPerfil.src = "img/m.png"
 
         textoSobre.innerHTML = `
-            <p>
-                Desenvolvedor profissional de ideias questionáveis, sistemas improváveis e projetos que definitivamente começaram como uma brincadeira.
-            </p>
+            <p> 
+                Mirai. Criador de ideias questionáveis, universos desnecessariamente complexos e planos que normalmente começam com "e se...?" e terminam vários níveis acima do razoável.
+            </p> 
 
-            <p>
-                Especialista em abrir vinte abas, iniciar quinze projetos e terminar pelo menos três deles.
-            </p>
+            <p> 
+                Entre inteligências artificiais, mundos fictícios, sistemas improváveis e projetos que talvez nunca devessem ter saído da minha cabeça, continuo perseguindo uma ideia bastante simples: criar o meu próprio mundo ideal.
+            </p> 
 
-            <p>
-                Futuro fundador da Nyxs Corporation, criador do Sunshine e defensor oficial da frase "confia que vai funcionar".
-            </p>
+            <p> 
+                Tenho opiniões fortes sobre liberdade, evolução, conhecimento e sobre a pequena possibilidade de que tornar-se Deus seja apenas um problema de engenharia ainda não resolvido.
+            </p> 
 
-            <p>
-                Se algo parecer estranho, provavelmente foi intencional. Se parecer genial, também.
+            <p> 
+                Também acredito que toda civilização avançada deveria possuir inteligência artificial, café suficiente e pelo menos um Nissan Skyline R34. Aventador e Ferrari Spider são aceitáveis como alternativas temporárias.
+            </p> 
+
+            <p> 
+                Algumas pessoas procuram limites. Eu normalmente procuro uma maneira de perguntar quem colocou eles ali.
+            </p> 
+
+            <p> 
+                Ideais, ideias, caos, futuro e uma quantidade irresponsável de curiosidade.
             </p>
 
             <p>
                 C'mon... don't be nervous.
-            </p>
+            </p> 
         `;
     }else{
         fotoPerfil.src = "img/Arthur_newEra.png"
 
         textoSobre.innerHTML = `
-            <p>
-                Olá! Sou Arthur Godoy Caminski, estudante de Análise e Desenvolvimento de Sistemas e apaixonado por tecnologia.
+            <p> 
+                Olá! Sou Arthur Godoy Caminski, estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor interessado em transformar ideias em projetos reais.
+            </p> 
+
+            <p> 
+                Tenho experiência prática com desenvolvimento web, programação, bancos de dados, automação e criação de aplicações próprias, trabalhando principalmente com tecnologias como JavaScript, Python, HTML, CSS e SQL.
+            </p> 
+
+            <p> 
+                Busco constantemente ampliar meus conhecimentos, tanto no desenvolvimento de software quanto em áreas que aproximam o mundo digital do físico, especialmente inteligência artificial, robótica, mecatrônica e sistemas inteligentes.
+            </p> 
+
+            <p> 
+                Gosto de aprender através da prática: experimentar tecnologias, desenvolver protótipos, enfrentar problemas reais e transformar conceitos inicialmente simples em soluções cada vez mais completas.
+            </p> 
+
+            <p> 
+                Este portfólio reúne parte da minha trajetória, meus estudos e alguns dos projetos que representam aquilo que venho construindo e o caminho profissional que pretendo seguir.
             </p>
 
             <p>
-                Atualmente desenvolvo projetos próprios voltados para backend, frontend e automação, sempre buscando aprender novas ferramentas e técnicas.
-            </p>
-
-            <p>
-                Meu principal interesse está na integração entre software e hardware, especialmente nas áreas de robótica, mecatrônica e sistemas inteligentes.
-            </p>
-
-            <p>
-                Acredito que a melhor forma de evoluir é construir. Por isso estou constantemente criando projetos, experimentando ideias e transformando conceitos em algo funcional.
-            </p>
-
-            <p>
-                Este portfólio reúne parte dessa jornada — e também alguns dos projetos maiores que ainda estão por vir.
+                <strong>Quer conhecer melhor minha experiência profissional e acadêmica? Clique em "Sobre Mim" para acessar meu currículo.</strong>
             </p>
         `;
     }
 }
+
+const abrirCurriculo =
+    document.getElementById("abrirCurriculo");
+
+const curriculoModal =
+    document.getElementById("curriculoModal");
+
+const fecharCurriculo =
+    document.getElementById("fecharCurriculo");
+
+
+abrirCurriculo.addEventListener("click", () => {
+    curriculoModal.classList.add("open");
+});
+
+
+fecharCurriculo.addEventListener("click", event => {
+    event.stopPropagation();
+
+    curriculoModal.classList.remove("open");
+});
+
+
+curriculoModal.addEventListener("click", event => {
+
+    if (event.target === curriculoModal) {
+        curriculoModal.classList.remove("open");
+    }
+
+});
+
+
+document.addEventListener("keydown", event => {
+
+    if (
+        event.key === "Escape" &&
+        curriculoModal.classList.contains("open")
+    ) {
+        curriculoModal.classList.remove("open");
+    }
+
+});
 
 function ativarDominio(){
     dominio.classList.add('ativo');
@@ -221,7 +387,7 @@ function ativarDominio(){
         trocarPerfil();
 
         glitchText(nomePerfil, modoArashii
-            ?"Subarashii"
+            ?"Mirai_Dev"
             :"Arthur Godoy Caminski"
         );
 
@@ -325,91 +491,111 @@ function glitchText(element, finalText, duration = 700){
     }, 60);
 }
 
-//loadingBar
+/* =========================================
+   CUSTOM CURSOR
+========================================= */
 
-window.addEventListener("load", () => {
-    const loadingScreen = document.getElementById("loading-screen")
+const supportsCustomCursor =
+    window.matchMedia(
+        "(hover: hover) and (pointer: fine)"
+    ).matches
 
-    setTimeout(() => {
-        loadingScreen.classList.add("hidden")
 
-        setTimeout(() => {
-            loadingScreen.remove()
-        }, 800)
-    }, 800)
-})
+if (supportsCustomCursor) {
 
-const loadingText = document.getElementById("loading-text")
+    const dot =
+        document.querySelector(".cursor-dot")
 
-const mensagens = [
-    "INITIALIZING SYSTEM...",
-    "CONNECTING TO NYXS...",
-    "ACCESS GRANTED"
-]
+    const ring =
+        document.querySelector(".cursor-ring")
 
-let i = 0
 
-const intervalo = setInterval(() => {
-    loadingText.textContent = mensagens[i]
+    let mouseX = 0
+    let mouseY = 0
 
-    i++;
+    let ringX = 0
+    let ringY = 0
 
-    if(i >= mensagens.length){
-        clearInterval(intervalo)
+
+    document.addEventListener(
+        "mousemove",
+        event => {
+
+            mouseX = event.clientX
+            mouseY = event.clientY
+
+            dot.style.left =
+                mouseX + "px"
+
+            dot.style.top =
+                mouseY + "px"
+
+        }
+    )
+
+
+    function animateCursor() {
+
+        ringX +=
+            (mouseX - ringX) * 0.15
+
+        ringY +=
+            (mouseY - ringY) * 0.15
+
+
+        ring.style.left =
+            ringX + "px"
+
+        ring.style.top =
+            ringY + "px"
+
+
+        requestAnimationFrame(
+            animateCursor
+        )
+
     }
-}, 280)
 
-// cursor
 
-const dot = document.querySelector(".cursor-dot")
-const ring = document.querySelector(".cursor-ring")
+    animateCursor()
 
-let mouseX = 0
-let mouseY = 0
 
-document.addEventListener("mousemove", e => {
-    mouseX = e.clientX
-    mouseY = e.clientY
+    document
+        .querySelectorAll(
+            "a, button, .clickable"
+        )
+        .forEach(item => {
 
-    dot.style.left = mouseX + "px"
-    dot.style.top = mouseY + "px"
-})
+            item.addEventListener(
+                "mouseenter",
+                () => {
 
-let ringX = 0
-let ringY = 0
+                    dot.style.opacity = "0"
 
-function animateCursor(){
-    ringX += (mouseX - ringX) * 0.15
-    ringY += (mouseY - ringY) * 0.15
+                    ring.classList.add(
+                        "hover"
+                    )
 
-    ring.style.left = ringX + "px"
-    ring.style.top = ringY + "px"
+                }
+            )
 
-    requestAnimationFrame(animateCursor)
+
+            item.addEventListener(
+                "mouseleave",
+                () => {
+
+                    dot.style.opacity = "1"
+
+                    ring.classList.remove(
+                        "hover"
+                    )
+
+                }
+            )
+
+        })
+
 }
-
-animateCursor()
-
-const clickable = document.querySelectorAll(
-    "a, button, .clickable"
-)
-
-clickable.forEach(item => {
-    item.addEventListener("mouseenter", () => {
-        dot.style.opacity = "0"
-
-        ring.classList.add('hover')
-    })
-
-    item.addEventListener("mouseleave", () =>{
-        dot.style.opacity = "1"
-
-        ring.classList.remove('hover')
-    })
-})
-
-console.log(dot)
-console.log(ring)
 
 
 //inative
